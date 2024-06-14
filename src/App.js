@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import PersonalInfoForm from "./components/PersonalInfoForm";
+import EducationForm from "./components/EducationForm.js";
+import WorkExperienceForm from "./components/WorkExperienceForm.js";
+import SkillsForm from "./components/SkillsForm.js";
+import AdditionalInfoForm from "./components/AdditionalInfoForm";
+import ReviewForm from "./components/ReviewForm";
+import { Container } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function App() {
+const theme = createTheme();
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Container>
+            <Routes>
+              <Route path="/PersonalInfo" element={<PersonalInfoForm/>} />
+              <Route path="/EducationForm" element={<EducationForm />} />
+              <Route path="/WorkExperience" element={<WorkExperienceForm />} />
+              <Route path="/Skills" element={<SkillsForm />} />
+              <Route path="/AdditionalInfoForm" element={<AdditionalInfoForm />} />
+              <Route path="/ReviewForm" element={<ReviewForm />} />
+              <Route path="/" element={<Navigate to="/PersonalInfo" />} />
+            </Routes>
+          </Container>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
-}
+};
 
 export default App;
